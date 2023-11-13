@@ -1,0 +1,148 @@
+
+name: GitHub Classroom Workflow
+
+on:
+  - push
+  - workflow_dispatch
+
+permissions:
+  checks: write
+  actions: write
+  contents: write
+
+jobs:
+  setup:
+    if: "(! contains(github.event.head_commit.message, 'Automatic setup'))" # && (github.event.head_commit.message == '')" # To prevent potential infinite loops
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Update content if needed
+      env:
+        CI: true # This ensures GitHub Actions treats shell commands' errors as fatal
+        REPO_NAME: ${{ github.repository }}
+      run: |
+        IS_SETUP=$(jq -r .repo .github/classroom/autograding.json)
+        
+        if [ "$IS_SETUP" != "$REPO_NAME" ]; then
+          jq --arg rn "$REPO_NAME" '.repo = $rn' .github/classroom/autograding.json > tmp.json
+          cat tmp.json > .github/classroom/autograding.json
+          python3 .github/scripts/updateReadme.py
+
+          # Commit and push changes
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add Readme.md .github/classroom/autograding.json
+          git commit -m "Automatic setup"
+          git push
+        fi
+  build:
+    name: Testergebnisse
+    runs-on: ubuntu-latest
+    if: "! contains(github.event.head_commit.message, 'Automatic setup') || github.actor != 'github-classroom[bot]'"
+    steps:
+      - name: Install puppeteer
+        run: |
+          npm install -g puppeteer@21.4.1
+          pip3 install pyastgrep cfn-lint
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+      - uses: GittyBitch/autograding@feature/feedback # stevenbitner/autograding@v1.1
+        id: autograder
+        continue-on-error: true
+      - name: badges branch and make dir
+        run: |
+          git checkout badges 2>/dev/null || git checkout -b badges
+          mkdir -p .github/badges
+      - name: score badge
+        uses: emibcn/badge-action@v1
+        with:
+          LABEL: 'Points'
+          STATUS: ${{ steps.autograder.outputs.points }}
+          COLOR: cyan
+          path: '.github/badges/points.svg'
+      - name: creating test badges
+        run: |
+          git clone https://github.com/emibcn/badge-action.git
+          counter=1
+          for value in $(echo '${{ steps.autograder.outputs.jsonresults}}' | jq -r '.[]'); do
+          if [ "$value" = "SUCCESS" ]; then
+          export COLOR="green"
+          else
+          export COLOR="red"
+          fi
+          export INPUT_LABEL='Status'
+          export INPUT_LABEL_COLOR='555'
+          export INPUT_COLOR=$COLOR
+          export INPUT_STATUS="$value"
+          export INPUT_GRADIENT=''
+          export INPUT_STYLE='classic'
+          export INPUT_SCALE='1.0'
+          export INPUT_PATH=".github/badges/testStatus_${counter}.svg"
+          node badge-action/dist/badge-action.modern.js
+          counter=$(expr $counter + 1)
+          done;
+          ls -la
+      - name: Upload badge as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: badge
+          path: '.github/badges/points.svg'
+          if-no-files-found: error
+      - name: Commit badge
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add '.github/badges/points.svg'
+
+          # add test specific badges
+          counter=1
+          for value in $(echo '${{ steps.autograder.outputs.jsonresults}}' | jq -r '.[]'); do
+            echo "git add test badge: #${counter}"
+            git add ".github/badges/testStatus_${counter}.svg"
+            counter=$(expr $counter + 1)
+          done;
+          
+          git commit -m "Add/Update badges"
+        continue-on-error: true
+      - name: Push badge commit
+        uses: ad-m/github-push-action@master
+        if: success()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: badges
+          force: true
+      - name: Check on failures
+        if: ${{ steps.autograder.outcome == 'failure' }}
+        run: echo "not all tests passed" && exit 1
+
+  upgrade:
+    name: Reassignment
+    runs-on: ubuntu-latest
+    if: 1
+    needs: [build]
+    steps: 
+      - uses: actions/checkout@v4
+      - name: updateReadme
+        run: |
+          MAXTESTINDEX=$(jq -r .maxTestIndex .github/classroom/autograding.json)
+          TESTLIMIT=$(jq -r .testLimit .github/classroom/autograding.json)
+          if [ $MAXTESTINDEX -lt $TESTLIMIT ]; then
+            NEXTLIMIT=$(expr $MAXTESTINDEX + 1)
+            jq --argjson rn $NEXTLIMIT '.maxTestIndex = $rn' .github/classroom/autograding.json > tmp.json
+            cat tmp.json > .github/classroom/autograding.json
+            python3 .github/scripts/updateReadme.py
+
+            # Commit and push changes
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add Readme.md .github/classroom/autograding.json
+            git commit -m "Automatic setup"
+            git push
+          fi
+      
+
+      
