@@ -22,7 +22,7 @@ jobs:
     - name: Update content if needed
       env:
         CI: true # This ensures GitHub Actions treats shell commands' errors as fatal
-        REPO_NAME: ${{ github.repository }}a
+        REPO_NAME: ${{ github.repository }}
       run: |
         IS_SETUP=$(jq -r .repo .github/classroom/autograding.json)
         
