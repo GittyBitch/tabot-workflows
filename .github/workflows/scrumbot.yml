@@ -14,6 +14,6 @@ jobs:
       env:
         TRELLO_KEY: ${{ secrets.TRELLO_KEY }}  # Trello API key
         TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}  # Trello API token
-        #TRELLO_BOARD_ID: ${{ secrets.TRELLO_BOARD_ID }}  # Our board ID
+        REQUEST_URL: "https://api.trello.com/1/members/me?key=${{TRELLO_KEY}}&token=${{TRELLO_TOKEN}}"
       run: |
-        curl "https://api.trello.com/1/members/me?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}"
+        curl $REQUEST_URL
