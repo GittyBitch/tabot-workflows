@@ -2,8 +2,15 @@
 name: GitHub Classroom Workflow
 
 on:
-  - push
-  - workflow_dispatch
+  workflow_call:
+    inputs:
+      log-level:
+        required: true
+        type: string
+    secrets:
+      GITHUB_TOKEN:
+        required: true
+
 
 permissions:
   checks: write
