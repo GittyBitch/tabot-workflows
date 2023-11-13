@@ -38,7 +38,6 @@ jobs:
           git commit -m "Automatic setup"
           git push
         fi
-    - uses: GittyBitch/tabot-workflows
   build:
     name: Testergebnisse
     runs-on: ubuntu-latest
@@ -127,7 +126,6 @@ jobs:
     needs: [build]
     steps: 
       - uses: actions/checkout@v4
-      - uses: GittyBitch/tabot-workflows
       - name: updateReadme
         run: |
           MAXTESTINDEX=$(jq -r .maxTestIndex .github/classroom/autograding.json)
