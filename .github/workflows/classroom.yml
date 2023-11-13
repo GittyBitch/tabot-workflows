@@ -22,14 +22,14 @@ jobs:
     - name: Update content if needed
       env:
         CI: true # This ensures GitHub Actions treats shell commands' errors as fatal
-        REPO_NAME: ${{ github.repository }}
+        REPO_NAME: ${{ github.repository }}a
       run: |
         IS_SETUP=$(jq -r .repo .github/classroom/autograding.json)
         
         if [ "$IS_SETUP" != "$REPO_NAME" ]; then
           jq --arg rn "$REPO_NAME" '.repo = $rn' .github/classroom/autograding.json > tmp.json
           cat tmp.json > .github/classroom/autograding.json
-          python3 .github/workflows/scripts/updateReadme.py
+          python3 tabot-workflows/.github/workflows/scripts/updateReadme.py
 
           # Commit and push changes
           git config --local user.email "action@github.com"
@@ -38,6 +38,7 @@ jobs:
           git commit -m "Automatic setup"
           git push
         fi
+    - uses: GittyBitch/tabot-workflows
   build:
     name: Testergebnisse
     runs-on: ubuntu-latest
@@ -126,6 +127,7 @@ jobs:
     needs: [build]
     steps: 
       - uses: actions/checkout@v4
+      - uses: GittyBitch/tabot-workflows
       - name: updateReadme
         run: |
           MAXTESTINDEX=$(jq -r .maxTestIndex .github/classroom/autograding.json)
@@ -134,7 +136,7 @@ jobs:
             NEXTLIMIT=$(expr $MAXTESTINDEX + 1)
             jq --argjson rn $NEXTLIMIT '.maxTestIndex = $rn' .github/classroom/autograding.json > tmp.json
             cat tmp.json > .github/classroom/autograding.json
-            python3 .github/workflows/scripts/updateReadme.py
+            python3 tabot-workflows/.github/workflows/scripts/updateReadme.py
 
             # Commit and push changes
             git config --local user.email "action@github.com"
