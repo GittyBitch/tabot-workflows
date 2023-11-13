@@ -32,6 +32,6 @@ jobs:
         CARD_NAME="Dynamically added Card"
         TIMESTAMP=$(date)
         DESCRIPTION="This card was dynamically added, timestamp on:${TIMESTAMP}"
-        curl -X POST -H "Content-Type: application/json" "https://api.trello.com/1/cards?idList=${LIST_ID}&key=${TRELLO_KEY}&token=${TRELLO_TOKEN}&name=${CARD_NAME}&desc=YOUR_DESCRIPTION"
+        curl -X POST -H "Content-Type: application/json" "https://api.trello.com/1/cards?idList=${LIST_ID}&key=${TRELLO_KEY}&token=${TRELLO_TOKEN}&name=${CARD_NAME}&desc=${DESCRIPTION}"
 
         echo "The End"
