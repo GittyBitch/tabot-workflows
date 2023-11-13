@@ -16,4 +16,5 @@ jobs:
         TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}  # Trello API token
         #TRELLO_BOARD_ID: ${{ secrets.TRELLO_BOARD_ID }}  # Our board ID
       run: |
-        curl "https://api.trello.com/1/Members/me/boards?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}" 
+        curl "https://api.trello.com/1/members/me?key={{TRELLO_KEY}}&token={{TRELLO_TOKEN}}"
+        #curl "https://api.trello.com/1/Members/me/boards?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}" 
