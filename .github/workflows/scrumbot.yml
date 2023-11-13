@@ -26,4 +26,5 @@ jobs:
         curl "https://api.trello.com/1/boards/${BOARD_ID}/lists?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}"
 
         # Backlog
-        # curl "https://api.trello.com/1/lists/${LIST_ID}/cards?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}"
+        LIST_ID=652fad5cf45d96a1f208b59c
+        curl "https://api.trello.com/1/lists/${LIST_ID}/cards?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}"
