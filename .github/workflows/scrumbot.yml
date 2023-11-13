@@ -32,6 +32,6 @@ jobs:
         TIMESTAMP=$(date)
         DESCRIPTION="This card was dynamically added, timestamp: $TIMESTAMP"
         URL="https://api.trello.com/1/cards?idList=${LIST_ID}&key=${TRELLO_KEY}&token=${TRELLO_TOKEN}"
-        curl -X POST -H "Content-Type: application/x-www-form-urlencoded" \
+        curl -s -X POST -H "Content-Type: application/x-www-form-urlencoded" \
         --data-urlencode "name=${CARD_NAME}" \
         --data-urlencode "desc=${DESCRIPTION}" $URL
