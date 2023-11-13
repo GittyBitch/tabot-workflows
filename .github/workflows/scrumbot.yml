@@ -20,3 +20,10 @@ jobs:
 
         # Boards
         curl "https://api.trello.com/1/members/me/boards?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}"
+        
+        # Lists
+        BOARD_ID=652fad5c15e830cdae31ea4a
+        curl "https://api.trello.com/1/boards/${BOARD_ID}/lists?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}"
+
+        # Backlog
+        # curl "https://api.trello.com/1/lists/${LIST_ID}/cards?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}"
