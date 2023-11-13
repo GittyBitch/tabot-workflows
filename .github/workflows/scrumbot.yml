@@ -16,4 +16,5 @@ jobs:
         TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}  # Trello API token
       run: |
         REQUEST_URL="https://api.trello.com/1/members/me?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}"
-        curl "$REQUEST_URL"
+        echo $REQUEST_URL
+        #curl "$REQUEST_URL"
