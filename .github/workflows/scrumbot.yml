@@ -17,3 +17,6 @@ jobs:
       run: |
         REQUEST_URL="https://api.trello.com/1/members/me?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}"
         curl "$REQUEST_URL"
+
+        # Boards
+        curl "https://api.trello.com/1/members/me/boards?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}"
