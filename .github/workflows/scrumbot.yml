@@ -28,3 +28,5 @@ jobs:
         # Backlog
         LIST_ID=6554730748de4533d808c40c
         curl -s "https://api.trello.com/1/lists/${LIST_ID}/cards?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}" | jq '.[].name'
+
+        echo "The End"
