@@ -34,7 +34,7 @@ if __name__ == "__main__":
         timeframe = data.get("timeframe", "30 Minuten")
         
         if logo_url is not None:
-            readme_file.write(f"<img src=\"{logo_url}\" alt=\"{textIntro}\" width=\"300\"/>\n")
+            readme_file.write(f"<img src=\"{logo_url}\" alt=\"Assignment Logo\" width=\"300\"/>\n")
             write_horizontal_line(readme_file)
         
         if introduction is not None:
