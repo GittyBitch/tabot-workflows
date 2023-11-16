@@ -51,7 +51,7 @@ if __name__ == "__main__":
                         " Veränderungen an denselben Dateien vornehmt, um merge-Konflikte zu reduzieren!<br/>")
             hint += "<b>WICHTIG</b>: Committet/Pusht eure Lösung bitte nicht in den .github-Ordner.<br/> "
             hint += "<b>ACHTUNG</b>: Die Badges unten werden nicht genauso schnell aktualisiert wie die Pipeline (Actions)<br/>" 
-            hint += "<b>Tipp</b>: Der TA-Bot kann Euch am Besten helfen, wenn Ihr regelmäßige kleine Commits pusht-um einen Blick auf Euren Stand zu pushen (es ist völlig normal, alle 5 Minuten zu pushen).<br/>"
+            hint += "<b>Tipp</b>: Der TA-Bot kann Euch am Besten helfen, wenn Ihr regelmäßige kleine Commits pusht-um einen Blick auf Euren Stand zu werfen (es ist völlig normal, alle 5 Minuten zu pushen).<br/>"
             hint += "Für Übersetzungen der Aufgabe in eine andere Sprache: https://translate.google.de <br/>"
             hint += "</span>"
             readme_file.write(f"<p>{hint} </p>\n")
