@@ -53,7 +53,7 @@ jobs:
           pip3 install pyastgrep cfn-lint
       - name: Install SQLite3
         run: |
-          apt get install sqlite3
+          apt install sqlite3
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
