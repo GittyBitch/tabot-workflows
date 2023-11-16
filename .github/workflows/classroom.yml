@@ -33,7 +33,8 @@ jobs:
         if [ "$IS_SETUP" != "$REPO_NAME" ]; then
           jq --arg rn "$REPO_NAME" '.repo = $rn' .github/classroom/autograding.json > tmp.json
           cat tmp.json > .github/classroom/autograding.json
-          python3 .github/scripts/updateReadme.py
+          wget https://github.com/GittyBitch/tabot-workflows/raw/main/.github/scripts/updateReadme.py
+          python3 ./updateReadme.py
 
           # Commit and push changes
           git config --local user.email "action@github.com"
@@ -141,7 +142,8 @@ jobs:
             NEXTLIMIT=$(expr $MAXTESTINDEX + 1)
             jq --argjson rn $NEXTLIMIT '.maxTestIndex = $rn' .github/classroom/autograding.json > tmp.json
             cat tmp.json > .github/classroom/autograding.json
-            python3 .github/scripts/updateReadme.py
+            wget https://github.com/GittyBitch/tabot-workflows/raw/main/.github/scripts/updateReadme.py
+            python3 updateReadme.py
 
             # Commit and push changes
             git config --local user.email "action@github.com"
