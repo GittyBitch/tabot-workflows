@@ -44,10 +44,10 @@ if __name__ == "__main__":
             hint =  "<span style='color:red;'>"
             assignmentType=data.get("type","individual")
             if (assignmentType == "group"):
-                hint += "<b>Info</b>: Bei dieser Aufgabe handelt es sich um eine Gruppenaufgabe, Ihr solltet "
+                hint += ("<b>Info</b>: Bei dieser Aufgabe handelt es sich um eine Gruppenaufgabe, Ihr solltet "
                         "also miteinander zusammen arbeiten und Euch die Arbeit dabei sinnvoll aufteilen."
                         "Denkt daran, git fetch/pull bzw. pull --rebase zu benutzen falls Ihr gleichzeitig"
-                        " Veränderungen an denselben Dateien vornehmt, um merge-Konflikte zu reduzieren!<br/>"
+                        " Veränderungen an denselben Dateien vornehmt, um merge-Konflikte zu reduzieren!<br/>")
             hint += "<b>WICHTIG</b>: Committet/Pusht eure Lösung bitte nicht in den .github-Ordner.<br/> "
             hint += "<b>ACHTUNG</b>: Die Badges unten werden nicht genauso schnell aktualisiert wie die Pipeline (Actions)<br/>" 
             hint += "Für Übersetzungen der Aufgabe in eine andere Sprache: https://translate.google.de <br/>"
