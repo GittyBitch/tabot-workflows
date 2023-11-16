@@ -42,8 +42,8 @@ if __name__ == "__main__":
             readme_file.write(f"* {total_points} Punkte\n* {timeframe}\n")
             write_horizontal_line(readme_file)
             hint =  "<span style='color:red;'>"
-            hint += "*WICHTIG*: Committet/Pusht eure Lösung bitte nicht in den .github-Ordner.<br/> "
-            hint += "*ACHTUNG*: Die Badges unten werden nicht genauso schnell aktualisiert wie die Pipeline (Actions)<br/>" 
+            hint += "<b>WICHTIG</b>: Committet/Pusht eure Lösung bitte nicht in den .github-Ordner.<br/> "
+            hint += "<b>ACHTUNG</b>: Die Badges unten werden nicht genauso schnell aktualisiert wie die Pipeline (Actions)<br/>" 
             hint += "Für Übersetzungen der Aufgabe in eine andere Sprache: https://translate.google.de <br/>"
             hint += "</span"
             readme_file.write(f"<p>{hint} </p>\n")
