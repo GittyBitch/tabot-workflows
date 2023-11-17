@@ -64,7 +64,7 @@ jobs:
         id: autograder
         continue-on-error: true
         with:
-          GITHUB_TOKEN: {{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: badges branch and make dir
         run: |
           git checkout badges 2>/dev/null || git checkout -b badges
