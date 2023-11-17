@@ -7,9 +7,6 @@ on:
       log-level:
         required: true
         type: string
-    outputs:
-      points: ${{ jobs.build.autograder.outputs.points }}
-
 
 permissions:
   checks: write
