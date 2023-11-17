@@ -8,7 +8,7 @@ on:
         required: true
         type: string
     outputs:
-      points: ${{ steps.autograder.outputs.points }}
+      points: ${{ jobs.build.autograder.outputs.points }}
 
 
 permissions:
