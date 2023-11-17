@@ -7,6 +7,8 @@ on:
       log-level:
         required: true
         type: string
+    outputs:
+      points: ${{ steps.autograder.outputs.points }}
 
 
 permissions:
