@@ -7,9 +7,6 @@ on:
       log-level:
         required: true
         type: string
-      run_id:
-        required: true
-        type: string
 
 permissions:
   checks: write
