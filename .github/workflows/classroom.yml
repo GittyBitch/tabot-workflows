@@ -47,7 +47,7 @@ jobs:
           git push
         fi
   build:
-     - name: badges branch and make dir
+      - name: badges branch and make dir
         run: |
           git checkout badges 2>/dev/null || git checkout -b badges
           mkdir -p .github/badges
